@@ -1,6 +1,6 @@
 <%= render :partial => 'spree/admin/yandex_market_settings/shared/configuration_menu' %>
 
-<%= form_tag(admin_yandex_market_settings_path, :method => :patch) do -%>
+<%= form_tag(admin_yandex_market_settings_path, :method => :put) do -%>
 
   <fieldset>
     <legend><%= t 'configure_yandex_market.general' %></legend>
@@ -52,9 +52,9 @@
     </fieldset> 
 
     <div class="form-buttons filter-actions actions">
-      <%= button Spree.t('update'), :class => 'icon-refresh button' %>
-      <span class="or"><%= Spree.t("or") %></span>
-      <%= link_to Spree.t("cancel"), admin_yandex_market_settings_url, :class => 'button icon-remove' %>
+      <%= button t('update'), :class => 'icon-refresh ' %>
+      <span class="or"><%= t("or") %></span>
+      <%= link_to t("cancel"), admin_yandex_market_settings_url, :class => 'button icon-remove' %>
     </div>
   </fieldset>
 <% end -%>
