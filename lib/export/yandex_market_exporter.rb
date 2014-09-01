@@ -84,7 +84,7 @@ module Export
         xml.price                   product.price
         xml.currencyId              @currencies.first.first
         @cat = get_category(product)
-        unless @cat.nil?
+        unless @cat.eql?('')
           xml.categoryId              @cat.id#tax_category_id
         end
         if image = product.images.first
