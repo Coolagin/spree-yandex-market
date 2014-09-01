@@ -83,7 +83,7 @@ module Export
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
         xml.currencyId              @currencies.first.first
-        xml.categoryId              product.tax_category_id
+        xml.categoryId              product.taxonomy_id#tax_category_id
         if image = product.images.first
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
