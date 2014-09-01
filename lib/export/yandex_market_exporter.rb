@@ -17,7 +17,7 @@ module Export
 
       @currencies = @config.preferred_currency.split(';').map{|x| x.split(':')}
       @currencies.first[1] = 1
-
+      @taxonomy = Spree::Taxonomy.find_by_name('Категории');
       # Nokogiri::XML::Builder.new({ :encoding =>"utf-8"}, SCHEME) do |xml|
       Nokogiri::XML::Builder.new(:encoding =>"utf-8") do |xml|
         xml.doc.create_internal_subset('yml_catalog',
@@ -42,7 +42,7 @@ module Export
 
                      xml.categories { # категории товара
                                       # Spree::Taxon.categories_root.self_and_descendants.each do |cat|
-                                      Spree::Taxon.all.each do |cat|
+                                      Spree::Taxon.where(taxonomy_id: @taxonomy.id).each do |cat|
                                         @cat_opt = { :id => cat.id }
                                         @cat_opt.merge!({ :parentId => cat.parent_id}) unless cat.parent_id.blank?
                                         xml.category(@cat_opt){ xml  << cat.name }
@@ -83,7 +83,10 @@ module Export
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
         xml.currencyId              @currencies.first.first
-        xml.categoryId              product.taxonomy_id#tax_category_id
+        @cat = get_category(product)
+        unless @cat.nil?
+          xml.categoryId              @cat.id#tax_category_id
+        end
         if image = product.images.first
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
@@ -103,6 +106,14 @@ module Export
           xml.param pp.value, {:name => pp.property_name}
         end
       }
+    end
+
+    def get_category(product)
+      result =''
+      product.taxons.each do |taxon|
+        result = taxon if taxon.taxonomy.eql?(Spree::Taxonomy.find_by_name('Категории'))
+      end
+      return result
     end
 
   end
