@@ -76,9 +76,9 @@ module Export
     def path_to_url(path)
       "http://#{@host.sub(%r[^http://],'')}/#{path.sub(%r[^/],'')}"
     end
-
+    # :type => 'vendor.model',
     def offer(xml,product)
-      opt = { :type => 'vendor.model', :id => product.id, :available => (product.residue > 0) }
+      opt = { :id => product.id, :available => (product.residue > 0) }
       xml.offer(opt) {
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
@@ -94,7 +94,8 @@ module Export
         # xml.delivery                true
         # xml.vendor                  product.brand_name
         xml.vendor                  product.brand_name
-        xml.model                   product.name
+        # xml.model                   product.name
+        xml.name                   product.name
         if product.description.present?
           xml.description           product.description
         end
