@@ -94,8 +94,7 @@ module Export
         # xml.delivery                true
         # xml.vendor                  product.brand_name
         xml.vendor                  product.brand_name
-        # xml.model                   product.name
-        xml.name                   product.name
+        xml.model                   product.name
         if product.description.present?
           xml.description           product.description
         end
