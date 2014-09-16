@@ -78,7 +78,7 @@ module Export
     end
 
     def offer(xml,product)
-      opt = {:id => product.id, :available => (product.residue > 0) }  #:type => 'vendor.model',
+      opt = { :type => 'vendor.model', :id => product.id, :available => (product.residue > 0) }
       xml.offer(opt) {
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
@@ -91,7 +91,7 @@ module Export
         if image = product.images.first
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
-        xml.delivery                true
+        # xml.delivery                true
         xml.vendor                  product.brand_name
         xml.model                   product.name
         if product.description.present?
