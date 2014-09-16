@@ -92,7 +92,8 @@ module Export
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
         # xml.delivery                true
-        xml.vendor                  product.brand_name
+        # xml.vendor                  product.brand_name
+        xml.vendor                  'FAR'
         xml.model                   product.name
         if product.description.present?
           xml.description           product.description
