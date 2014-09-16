@@ -78,11 +78,11 @@ module Export
     end
 
     def offer(xml,product)
-      opt = { :type => 'vendor.model', :id => product.id, :available => (product.residue > 0) }
+      opt = {:id => product.id, :available => (product.residue > 0) }  #:type => 'vendor.model',
       xml.offer(opt) {
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
-        xml.delivery                true
+
         xml.currencyId              @currencies.first.first
         @cat = get_category(product)
         unless @cat.eql?('')
@@ -91,6 +91,7 @@ module Export
         if image = product.images.first
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
+        xml.delivery                true
         xml.vendor                  product.brand_name
         xml.model                   product.name
         if product.description.present?
