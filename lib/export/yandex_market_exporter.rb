@@ -91,8 +91,7 @@ module Export
         if image = product.images.first
           xml.picture               path_to_url(CGI.escape(image.attachment.url(:product, false)))
         end
-        xml.delivery                true
-        xml.local_delivery_cost     300
+        # xml.delivery                true
         xml.vendor                  product.brand_name
         xml.model                   product.name
         if product.description.present?
