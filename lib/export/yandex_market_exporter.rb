@@ -93,7 +93,7 @@ module Export
         end
         # xml.delivery                true
         # xml.vendor                  product.brand_name
-        xml.vendor                  'FAR'
+        xml.vendor                  product.brand_name
         xml.model                   product.name
         if product.description.present?
           xml.description           product.description
