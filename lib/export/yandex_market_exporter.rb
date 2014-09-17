@@ -78,7 +78,7 @@ module Export
     end
     # :type => 'vendor.model',
     def offer(xml,product)
-      opt = { :id => product.id, :available => (product.residue > 0) }
+      opt = { :type => 'vendor.model',:id => product.id, :available => (product.residue > 0) }
       xml.offer(opt) {
         xml.url                     product_url(product, :host => @host)
         xml.price                   product.price
